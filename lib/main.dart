@@ -4,9 +4,11 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter TextField Scrolling Issue'),
     );
   }
 }
@@ -39,9 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     controllers = [];
-    controllers.add(TextEditingController(text: "A"));
-    controllers.add(TextEditingController(text: "B"));
-    controllers.add(TextEditingController(text: "C"));
+    controllers.add(TextEditingController(text: "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum"));
   }
 
   @override
@@ -50,53 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controllers.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Expanded(
-                                child: TextField(
-                                    controller: controllers[index],
-                                    decoration: const InputDecoration(
-                                      hintText: '(e.g. Road washout 8 miles in.)',
-                                    ),
-                                    onChanged: (text) {
-                                      setState(() {
-                                        if (index == controllers.length - 1) {
-                                          controllers.add(TextEditingController(text: ""));
-                                        }
-                                      });
-                                    }
-                                )
-                            ),
-                            Flexible(
-                                flex: 0,
-                                child: index == 0 ? const SizedBox.shrink() : IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      controllers.removeAt(index);
-                                    });
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
-                                  color: Colors.red,
-                                )
-                            )
-                          ],
-                        );
-                      }
-                  )
-                ]
-            )
-        ));
+        body: ListView.builder(
+            shrinkWrap: true,
+            itemCount: controllers.length,
+            itemBuilder: (context, index) {
+              return TextField(
+                controller: controllers[index],
+              );
+            })
+    );
   }
 }
